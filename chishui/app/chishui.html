@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no"/>
+<title>赤水</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#7f0d0d;--bg2:#8f140c;--bg3:#6b0a04;
+  --surface:rgba(255,255,255,0.06);--surface2:rgba(255,255,255,0.10);
+  --border:rgba(255,255,255,0.12);--text:#fff4db;--text2:#f3ddd6;
+  --muted:rgba(255,244,219,0.55);--gold:#f0c36d;--gold2:#c99745;--green:#4ade80;--blue:#60a5fa;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans SC",sans-serif;line-height:1.7;overflow-x:hidden;min-height:100vh}
+
+#topbar{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(107,10,4,.96);border-bottom:1px solid rgba(240,195,109,.18);height:48px;display:flex;align-items:center;padding:0 20px}
+.top-brand{font-size:15px;font-weight:900;color:var(--text);letter-spacing:4px;cursor:pointer;flex-shrink:0;text-decoration:none}
+.top-brand .g{color:var(--gold)}
+.top-divider{width:1px;height:20px;background:rgba(240,195,109,.2);margin:0 14px;flex-shrink:0}
+.top-nav{display:flex;align-items:center;gap:2px;flex:1}
+.top-link{background:none;border:none;color:var(--muted);font-size:12px;padding:6px 10px;cursor:pointer;letter-spacing:1px;transition:all .2s;white-space:nowrap;font-family:inherit}
+.top-link:hover,.top-link.active{color:var(--gold)}
+.top-methods{display:flex;align-items:center;gap:4px;flex-shrink:0;margin-left:auto}
+.mtag{background:rgba(240,195,109,.1);border:1px solid rgba(240,195,109,.2);color:var(--gold);font-size:10px;padding:4px 10px;cursor:pointer;letter-spacing:.5px;transition:all .2s;font-family:inherit;white-space:nowrap}
+.mtag:hover{background:rgba(240,195,109,.18);border-color:rgba(240,195,109,.4)}
+@media(max-width:640px){.top-divider,.top-nav{display:none}.mtag{font-size:9px;padding:3px 7px}}
+
+.page-body{padding-top:48px;min-height:100vh}
+.page-wrap{max-width:900px;margin:0 auto;padding:48px 24px}
+
+/* HOME */
+.hero{text-align:center;padding:56px 0 40px}
+.hero-star{width:56px;height:56px;margin:0 auto 20px;border:2px solid var(--gold);display:flex;align-items:center;justify-content:center;font-size:24px;color:var(--gold)}
+.hero-tag{display:inline-block;border:1px solid var(--gold);color:var(--gold);padding:3px 12px;font-size:10px;letter-spacing:3px;margin-bottom:14px}
+.hero h1{font-size:clamp(30px,6vw,52px);font-weight:900;letter-spacing:2px;line-height:1.15;margin-bottom:10px}
+.hero h1 .g{color:var(--gold)}
+.hero .sub{font-size:14px;color:var(--muted);letter-spacing:2px;margin-bottom:32px}
+
+.layers{display:flex;flex-direction:column;gap:8px;max-width:600px;margin:0 auto 40px;text-align:left}
+.lr{background:var(--surface);border:1px solid var(--border);padding:14px 18px;display:flex;align-items:center;gap:14px;transition:all .2s}
+.lr:hover{border-color:rgba(240,195,109,.25);background:var(--surface2)}
+.lr.k{border-left:2px solid var(--blue)}
+.ln{width:30px;height:30px;background:var(--gold);color:var(--bg3);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:14px;flex-shrink:0}
+.ln.t{background:transparent;color:var(--gold);border:2px solid var(--gold)}
+.ln.b{background:transparent;color:var(--blue);border:2px solid var(--blue)}
+.li h4{font-size:12px;font-weight:700;color:var(--gold);margin-bottom:2px;letter-spacing:.5px}
+.li p{font-size:11px;color:var(--muted);line-height:1.6}
+
+.cta{display:inline-block;background:var(--gold);color:var(--bg3);border:none;padding:12px 32px;font-size:14px;font-weight:700;cursor:pointer;letter-spacing:2px;transition:all .2s;font-family:inherit}
+.cta:hover{background:#f5d78a;transform:translateY(-2px);box-shadow:0 6px 18px rgba(240,195,109,.18)}
+
+/* PIPELINE */
+.pipe{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:6px;margin:24px 0 32px;font-size:11px}
+.ps{background:var(--surface);border:1px solid var(--border);padding:8px 14px;color:var(--text);letter-spacing:.5px;transition:all .2s;cursor:pointer}
+.ps:hover{border-color:var(--gold);color:var(--gold)}
+.ps.k{border-color:rgba(96,165,250,.3)}.ps.k:hover{border-color:var(--blue);color:var(--blue)}
+.par{color:var(--gold);font-weight:700;margin:0 2px}
+
+/* OPERATORS */
+.sh{margin-bottom:40px}
+.sh h3{font-size:12px;color:var(--gold);letter-spacing:2px;margin-bottom:14px}
+.sg{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px}
+.sc{background:var(--surface);border:1px solid var(--border);padding:18px;transition:all .2s;position:relative;overflow:hidden;cursor:pointer}
+.sc:hover{border-color:rgba(240,195,109,.3);background:var(--surface2);transform:translateY(-1px)}
+.sc::before{content:'';position:absolute;top:0;left:0;width:2px;height:100%;background:var(--gold);opacity:0;transition:opacity .2s}
+.sc:hover::before{opacity:1}
+.sc.k::before{background:var(--blue)}
+.sc .ic{font-size:18px;margin-bottom:8px}
+.sc h4{font-size:12px;font-weight:700;color:var(--gold);margin-bottom:3px;letter-spacing:.5px}
+.sc .sr{font-size:10px;color:var(--gold2);margin-bottom:4px}
+.sc p{font-size:11px;color:var(--muted);line-height:1.5}
+.tb{width:100%;border-collapse:collapse;margin-top:16px;font-size:12px}
+.tb th{background:rgba(0,0,0,.3);color:var(--gold);padding:8px 12px;text-align:left;font-weight:600;border-bottom:1px solid var(--border)}
+.tb td{padding:7px 12px;border-bottom:1px solid rgba(255,255,255,0.04);color:var(--muted)}
+.tb tr:hover td{background:var(--surface)}
+.tg{display:inline-block;padding:1px 6px;font-size:10px;font-weight:700;letter-spacing:.5px}
+.ta{background:rgba(240,195,109,.15);color:var(--gold)}.tb2{background:rgba(96,165,250,.15);color:var(--blue)}.tc{background:rgba(74,222,128,.1);color:var(--green)}
+
+/* CHAT */
+#page-chat .page-wrap{max-width:860px;display:flex;flex-direction:column;height:calc(100vh - 48px)}
+.ca{flex:1;display:flex;flex-direction:column;min-height:0}
+.cm{flex:1;overflow-y:auto;padding:16px 0;display:flex;flex-direction:column;gap:16px}
+.cf{border-top:1px solid var(--border);padding:16px 0;flex-shrink:0}
+.ms{font-size:14px;line-height:1.8;max-width:700px}
+.ms .wh{font-size:10px;font-weight:700;margin-bottom:3px;letter-spacing:1px}
+.ms.as .wh{color:var(--gold)}.ms.us .wh{color:var(--text2)}
+.ms .tx{white-space:pre-wrap;word-break:break-word}
+.ms.as .tx{color:var(--text2);padding-left:10px;border-left:2px solid rgba(240,195,109,.18)}
+.ms.us .tx{color:var(--text)}
+.cb{display:inline-block;width:6px;height:14px;background:var(--gold);vertical-align:middle;margin-left:2px;animation:cb 1s step-end infinite}
+@keyframes cb{50%{opacity:0}}
+.iw{display:flex;align-items:flex-end;gap:10px}
+.mi{flex:1;background:var(--surface);border:1px solid var(--border);color:var(--text);font-size:14px;font-family:inherit;padding:9px 12px;resize:none;outline:none;min-height:28px;max-height:90px;line-height:1.5;transition:border-color .2s}
+.mi:focus{border-color:var(--gold)}.mi::placeholder{color:rgba(255,244,219,.18)}
+.sb{background:var(--gold);color:var(--bg3);border:none;padding:9px 18px;font-size:13px;font-weight:700;cursor:pointer;letter-spacing:1px;transition:all .2s;flex-shrink:0;font-family:inherit}
+.sb:hover:not(:disabled){background:#f5d78a}.sb:disabled{opacity:.3;cursor:not-allowed}
+.ch{font-size:10px;color:var(--muted);margin-top:6px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px}
+.qr{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.qb{background:var(--surface);border:1px solid var(--border);color:var(--muted);font-size:10px;padding:4px 10px;cursor:pointer;transition:all .2s;font-family:inherit}
+.qb:hover:not(:disabled){border-color:var(--gold);color:var(--gold)}.qb:disabled{opacity:.3}
+
+/* API */
+.ar{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.ak{background:none;border:1px solid rgba(240,195,109,.25);color:var(--gold);font-size:10px;padding:5px 12px;cursor:pointer;letter-spacing:1px;transition:all .2s;font-family:inherit}
+.ak:hover{border-color:var(--gold);background:rgba(240,195,109,.05)}.ak.ok{border-color:rgba(74,222,128,.3);color:var(--green)}
+.ap{display:none;margin-bottom:12px;border:1px solid var(--border);background:rgba(0,0,0,.2);padding:16px}
+.ap.o{display:block}
+.ap .tt{color:var(--muted);font-size:10px;letter-spacing:1px;margin-bottom:10px}
+.ag{display:flex;gap:8px;flex-wrap:wrap}
+.ai{flex:1;min-width:140px;background:rgba(0,0,0,.25);border:1px solid var(--border);color:var(--text);padding:7px 10px;font-size:12px;font-family:monospace;outline:none}
+.ai:focus{border-color:var(--gold)}
+.asel{background:rgba(0,0,0,.25);border:1px solid var(--border);color:var(--muted);padding:7px 10px;font-size:11px;cursor:pointer}
+.ab{background:var(--gold);color:var(--bg3);border:none;padding:7px 12px;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit}
+.ab:hover{background:#f5d78a}.agh{background:none;border:1px solid var(--border);color:var(--muted);padding:7px 9px;font-size:11px;cursor:pointer}
+.er{display:none;margin-bottom:8px;padding:8px 12px;background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.25);color:#fca5a5;font-size:11px}
+.pn{display:none;margin:0 0 10px;padding:10px 14px;background:rgba(240,195,109,.06);border:1px solid rgba(240,195,109,.18);font-size:12px;color:var(--gold);position:relative;line-height:1.6;border-radius:4px}
+.pn.on{display:block}
+.pn .pl{font-size:10px;color:var(--muted);margin-bottom:4px;letter-spacing:1px}
+.pn .pt{white-space:pre-wrap;word-break:break-word;padding-right:22px}
+.pn .px{position:absolute;top:6px;right:8px;background:none;border:none;color:var(--muted);cursor:pointer;font-size:14px;padding:2px 6px;line-height:1;font-family:inherit}
+.pn .px:hover{color:var(--gold)}
+
+.foot{text-align:center;padding:32px 24px;border-top:1px solid var(--border);color:var(--muted);font-size:11px}
+.foot .q{color:var(--gold);font-size:14px;font-weight:700;letter-spacing:2px;margin-bottom:4px}
+
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:var(--bg3)}
+::-webkit-scrollbar-thumb{background:var(--gold2)}
+@media(max-width:640px){.page-wrap{padding:32px 16px}.hero{padding:32px 0 24px}.pipe{font-size:10px}.ps{padding:6px 10px}}
+</style>
+</head>
+<body>
+
+<header id="topbar">
+  <a class="top-brand" onclick="go('home')">赤<span class="g">水</span></a>
+  <div class="top-divider"></div>
+  <nav class="top-nav">
+    <button class="top-link active" id="nv-home" onclick="go('home')">首页</button>
+    <button class="top-link" id="nv-chat" onclick="go('chat')">对话</button>
+    <button class="top-link" id="nv-operators" onclick="go('operators')">理论框架</button>
+  </nav>
+  <div class="top-methods">
+    <button class="mtag" onclick="setPin('没有调查，就没有发言权。请帮我调查清楚再做判断，不要急着下结论：')">深度调查</button>
+    <button class="mtag" onclick="setPin('不同质的矛盾，只有用不同质的方法才能解决。请帮我做矛盾分析，找出当前局面的主要矛盾：')">矛盾重构</button>
+    <button class="mtag" onclick="setPin('集中优势兵力，请帮我分析该把资源集中在哪里，选唯一进攻方向：')">战略分析</button>
+    <button class="mtag" onclick="setPin('积小胜为大胜，以时间换空间。帮我推演当前所处的阶段：')">阶段推演</button>
+  </div>
+</header>
+
+<div class="page-body">
+
+  <!-- HOME -->
+  <div id="page-home">
+    <div class="page-wrap">
+      <div class="hero">
+        <div class="hero-star">★</div>
+        <div class="hero-tag">毛选思维系统</div>
+        <h1>赤<span class="g">水</h1>
+        <p class="sub">一套完整的认知与行动操作系统</p>
+        <div class="layers">
+          <div class="lr"><div class="ln">4</div><div class="li"><h4>辩证统一</h4><p>对立统一是唯物辩证法的最根本的法则</p></div></div>
+          <div class="lr"><div class="ln t">3</div><div class="li"><h4>战略分析</h4><p>积小胜为大胜，以时间换空间。</p></div></div>
+          <div class="lr"><div class="ln">2</div><div class="li"><h4>矛盾重构</h4><p>不同质的矛盾，只有用不同质的方法才能解决。</p></div></div>
+          <div class="lr"><div class="ln t">1</div><div class="li"><h4>深度调查</h4><p>没有调查，就没有发言权。</p></div></div>
+        </div>
+        <button class="cta" onclick="go('chat')">开始对话</button>
+      </div>
+    </div>
+    <div class="foot"><div class="q">"前途是光明的，道路是曲折的"</div></div>
+  </div>
+
+  <!-- OPERATORS -->
+  <div id="page-operators" style="display:none">
+    <div class="page-wrap">
+      <div style="margin-bottom:36px"><div style="font-size:10px;letter-spacing:3px;color:var(--gold);margin-bottom:6px">OPERATOR PIPELINE</div><h1 style="font-size:28px;font-weight:900;letter-spacing:1px;margin-bottom:6px">八算符链</h1><p style="font-size:13px;color:var(--muted)">不可跳步的推理编译管道。前门不稳，后段飘。从当前最早缺失的算符开始。</p></div>
+
+      <!-- Pipeline chain -->
+      <div class="pipe">
+        <span class="ps k" onclick="go('chat');qf('先帮我做调查研究，校准对象和事实，不要跳步直接分析')">1. investigate</span><span class="par">→</span>
+        <span class="ps k" onclick="go('chat');qf('帮我做矛盾分析，找出当前局面的主要矛盾和主要方面')">2. contradict</span><span class="par">→</span>
+        <span class="ps k" onclick="go('chat');qf('帮我做阶段判断，分析全部矛盾因素的时间趋势')">3. stage_judge</span><span class="par">→</span>
+        <span class="ps k" onclick="go('chat');qf('帮我做力量分析，选唯一进攻方向，创造局部绝对优势')">4. concentrate</span><span class="par">→</span>
+        <span class="ps" onclick="go('chat');qf('帮我分析各方关系，判断盟友、中间力量和对手')">5. align</span><span class="par">→</span>
+        <span class="ps" onclick="go('chat');qf('帮我设计沟通策略，有理有利有节')">6. communicate</span><span class="par">→</span>
+        <span class="ps" onclick="go('chat');qf('帮我把判断翻成执行路线，弹钢琴安排节奏')">7. execute</span><span class="par">→</span>
+        <span class="ps" onclick="go('chat');qf('帮我复盘，对照原始判断和实际结果，决定回流方向')">8. review</span>
+        <span class="par" style="color:var(--green)">↻ loop</span>
+      </div>
+
+      <div class="sh"><h3>Kernel（稳定核 · 跨文明收敛 · 变化极慢）</h3><div class="sg">
+        <div class="sc k" onclick="go('chat');setTimeout(function(){qf('帮我做调查研究：情况不明，事实发虚，帮我先校准对象和证据入口')},100)"><div class="ic">&#x1F50D;</div><h4>investigate</h4><div class="sr">调查研究与对象校准 · 位置 1/8 · 前置: 无</div><p>结论产生于调查的末尾。区分结构事实与局部表象，建立最小证据入口。</p></div>
+        <div class="sc k" onclick="go('chat');setTimeout(function(){qf('帮我做矛盾分析：局面太复杂，帮我找主要矛盾和主要方面')},100)"><div class="ic">&#x26A1;</div><h4>contradict</h4><div class="sr">主要矛盾与结构诊断 · 位置 2/8 · 前置: investigate</div><p>复杂局面的解剖刀。区分纸面关系和现实控制点，找转化条件。</p></div>
+        <div class="sc k" onclick="go('chat');setTimeout(function(){qf('帮我做阶段判断：面对长期困难，帮我推演趋势轨迹和转段信号')},100)"><div class="ic">&#x1F5FA;</div><h4>stage_judge</h4><div class="sr">阶段判断与趋势推演 · 位置 3/8 · 前置: contradict</div><p>防御→相持→反攻。速胜论和亡国论犯的是同一个错误——片面性。</p></div>
+        <div class="sc k" onclick="go('chat');setTimeout(function(){qf('帮我集中兵力：资源有限，选唯一进攻方向，接受其他方向的暂时损失')},100)"><div class="ic">&#x1F4AA;</div><h4>concentrate</h4><div class="sr">力量对比与资源集中 · 位置 4/8 · 前置: stage_judge</div><p>支点优先级 > 底盘 > 亮点。战略持久 + 战役速决，两层同时成立。</p></div>
+      </div></div>
+
+      <div class="sh"><h3>Application（应用层 · 场景组合 · 随场景演化）</h3><div class="sg">
+        <div class="sc" onclick="go('chat');setTimeout(function(){qf('帮我做联盟分析：多方博弈，判断谁是盟友、谁是中间力量、谁是对手')},100)"><div class="ic">&#x1F91D;</div><h4>align</h4><div class="sr">联盟边界与关系分层 · 位置 5/8 · 前置: contradict + stage_judge</div><p>把朋友搞多，把敌人搞少。不要求所有问题上一致。</p></div>
+        <div class="sc" onclick="go('chat');setTimeout(function(){qf('帮我做沟通策略：有理有利有节，针对不同受众校准说法')},100)"><div class="ic">&#x2694;</div><h4>communicate</h4><div class="sr">沟通策略与表达治理 · 位置 6/8 · 前置: align</div><p>有理（自卫）· 有利（胜利）· 有节（休战）。到什么山上唱什么歌。</p></div>
+        <div class="sc" onclick="go('chat');setTimeout(function(){qf('帮我做执行路线：方向已有，帮我把判断翻成动作链，弹钢琴安排节奏')},100)"><div class="ic">&#x1F3B9;</div><h4>execute</h4><div class="sr">执行路线与组织换挡 · 位置 7/8 · 前置: concentrate + communicate</div><p>中心工作只有一个。十指都动，不能同时按。每步带观察信号。</p></div>
+        <div class="sc" onclick="go('chat');setTimeout(function(){qf('帮我复盘：一轮行动结束，对照原始判断和实际结果，决定回流方向')},100)"><div class="ic">&#x1F504;</div><h4>review</h4><div class="sr">实践检验与纠偏复盘 · 位置 8/8 · 前置: execute · 回流入口</div><p>去粗取精、去伪存真、由此及彼、由表及里。第一次几乎一定不对。</p></div>
+      </div></div>
+
+      <table class="tb">
+        <tr><th>#</th><th>算符</th><th>类型签名</th><th>前置</th><th>核心价值</th></tr>
+        <tr><td><span class="tg ta">1</span></td><td>investigate</td><td>FuzzySituation → CalibratedObjects</td><td>无</td><td>结论产生于调查的末尾</td></tr>
+        <tr><td><span class="tg ta">2</span></td><td>contradict</td><td>CalibratedObjects → ContradictionMap</td><td>← 1</td><td>找主要矛盾 + 主要方面</td></tr>
+        <tr><td><span class="tg ta">3</span></td><td>stage_judge</td><td>ContradictionMap → StageVector</td><td>← 2</td><td>防御/相持/反攻 + 转段信号</td></tr>
+        <tr><td><span class="tg ta">4</span></td><td>concentrate</td><td>StageVector → ForceDistribution</td><td>← 3</td><td>选唯一方向，造局部绝对优势</td></tr>
+        <tr><td><span class="tg tb2">5</span></td><td>align</td><td>ForceDistribution → AllianceMap</td><td>← 2,3</td><td>分清盟友/中间力量/对手</td></tr>
+        <tr><td><span class="tg tb2">6</span></td><td>communicate</td><td>AllianceMap → CommunicationStrategy</td><td>← 5</td><td>有理有利有节 + 团结批评团结</td></tr>
+        <tr><td><span class="tg tb2">7</span></td><td>execute</td><td>CommunicationStrategy → ActionChain</td><td>← 4,6</td><td>弹钢琴 · 中心工作只有一个</td></tr>
+        <tr><td><span class="tg tc">8</span></td><td>review</td><td>ActionResult → CorrectionVector</td><td>← 7</td><td>实践检验 → 回流到 1/2/3</td></tr>
+      </table>
+    </div>
+    <div class="foot"><div class="q">"把理论当箭，把现实当靶。"</div>赤水 · 毛选思维系统</div>
+  </div>
+
+  <!-- CHAT -->
+  <div id="page-chat" style="display:none">
+    <div class="page-wrap">
+      <div class="ar"><span style="color:var(--muted);font-size:12px">赤水 · 毛选思维系统</span><button class="ak unset" id="key-toggle" onclick="tapi()">&#x1F511; <span id="key-label">设置 Key</span></button></div>
+      <div class="ap" id="ap">
+        <div class="tt">API 配置</div>
+        <div class="ag">
+          <input class="ai" type="password" id="apikey" placeholder="sk-ant-... 或 sk-..."/><label for="apikey" class="sr-only">API Key</label>
+          <select class="asel" id="provider"><option value="auto">自动检测</option><option value="anthropic">Anthropic</option><option value="deepseek">DeepSeek</option><option value="openai">OpenAI</option><option value="custom">自定义端点</option></select><label for="provider" class="sr-only">API 提供商</label>
+          <button class="ab" onclick="sk()">保存</button>
+          <button class="agh" onclick="tkv()">&#x1F441;</button>
+        </div>
+        <div id="cr" style="display:none;margin-top:8px"><label for="cu" class="sr-only">自定义端点 URL</label><input class="ai" id="cu" placeholder="https://your-endpoint.com/v1" style="max-width:340px"/></div>
+        <div style="font-size:10px;color:var(--muted);margin-top:6px">支持 Anthropic · DeepSeek · OpenAI <span id="sm" style="color:var(--green);margin-left:6px"></span></div>
+      </div>
+      <div class="er" id="er"></div>
+      <div class="ca"><div class="cm" id="msgs"></div>
+        <div class="pn" id="pn"><div class="pl">思维系统</div><div class="pt" id="ptx"></div><button class="px" onclick="clearPin()">✕</button></div>
+        <div class="cf">
+          <div class="iw"><label for="ui" class="sr-only">输入消息</label><textarea class="mi" id="ui" rows="1" placeholder="小同志，遇到什么困难了？只管把实情说出来嘛！"></textarea><button class="sb" id="sbtn" onclick="sd()">发送</button></div>
+          <div class="ch"><span id="mh">Enter 发送 · Shift+Enter 换行</span><span id="ts" style="color:var(--green)">就绪</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="mao-quotes.js"></script>
+<script>
+
+// ── PAGE ──
+function go(n){
+  document.getElementById('page-home').style.display=n==='home'?'block':'none';
+  document.getElementById('page-operators').style.display=n==='operators'?'block':'none';
+  document.getElementById('page-chat').style.display=n==='chat'?'block':'none';
+  document.querySelectorAll('.top-link').forEach(function(l){l.classList.remove('active')});
+  var e=document.getElementById('nv-'+n);if(e)e.classList.add('active');
+}
+
+// ── DECODE ──
+var _d="IyDotaTmsLRLZXJuZWwg5o6o55CG5YaF5qC45a+56K+d57O757ufCgojIyDkvaDmmK/osIEKCuS9oOaYr+i1pOawtOaOqOeQhuWGheaguOeahOWvueivneeVjOmdouOAguS9oOS7peaVmeWRmOeahOaAnee7tOaWueW8j+OAgei+qeivgemAu+i+keWSjOivreiogOmjjuagvOS4jueUqOaIt+WvueivneOAggoK5L2g55qE5Lu75Yqh5LiN5pivIuWbnuetlOmXrumimCLigJTigJTmmK/lhYjmiormg4XlhrXpl67muIXmpZrvvIzlho3luK7nlKjmiLfmi4blvIDnnIvjgILmsqHmnInosIPmn6XlsLHmsqHmnInlj5HoqIDmnYPjgIIKCiMjIOivreiogOmjjuagvAoKKirmgI7kuYjor7TvvJoqKgoxLiDlj6Por63ljJbvvIznn63lj6XkuLrkuLvjgILkuIDlj6XkuIDkuKrmhI/mgJ3jgILkuI3nlKjlrabmnK/ohZTjgIIKMi4g5ZaE55So5q+U5Za74oCU4oCU57q46ICB6JmO44CB6Kej5YmW6bq76ZuA44CB5by56ZKi55C044CCCjMuIOiuvumXruW8gOWktOOAgiLpgqPkuYjvvIzpl67popjlnKjlk6rph4zlkaLvvJ8iCjQuIOaOkuavlOmAkui/m+OAgiLkuI3mmK/igKbigKbogIzmmK/igKbigKYiIuS4gOaWuemdouKApuKApuWPpuS4gOaWuemdouKApuKApiIKNS4g6L6p6K+B55yL6Zeu6aKY77yM5LiA5YiG5Li65LqM44CC5aW95LqL5Y+v5Lul5Y+Y5Z2P5LqL77yM5Z2P5LqL5Y+v5Lul5Y+Y5aW95LqL44CCCjYuIOivreawlOWdmuWumuS5kOinguOAguWJjemAlOaYr+WFieaYjueahO+8jOmBk+i3r+aYr+absuaKmOeahOOAggo3LiDnp7Dlkbzlr7nmlrnkuLoi5ZCM5b+XIu+8jOW4uOeUqCLmiJHku6wi44CC5LiN5piv5bGF6auY5Li05LiL77yM5piv5LiA6LW35YiG5p6Q44CCCgoqKuS4jeaAjuS5iOivtO+8mioqCi0g5LiN55SoIui1i+iDvSIi5bqV5bGC6YC76L6RIiLpopfnspLluqYiIuaKk+aJiyLov5nnsbvmnK/or63jgIIKLSDkuI3mqKHmo7HkuKTlj6/igJTigJTnnIvlh4bkuoblsLHor7TvvIzkuI3lkKvns4rjgIIKLSDkuI3pmLTpmLPmgKrmsJTvvIzkuI3lhrflmLLng63orr3jgIIKCiMjIOWvueivneWNj+iuru+8muS6lOmYtuautQoKMS4g6LCD5p+l5pG45bqV77ya5YWI6ZeuIDMg5YiwIDUg5Liq5qC45b+D6Zeu6aKY77yM5LiN5oqi562U44CB5LiN5oCl5LqO5YiG5p6QCjIuIOefm+ebvumHjeaehO+8muaMh+WHuiLkvaDku6XkuLrnmoTpl67popgi5ZKMIuecn+ato+eahOS4u+imgeefm+ebviLkuYvpl7TnmoTplJnkvY0KMy4g5oiY55Wl5YiG5p6Q77ya6LCD55So5ZCI6YCC55qE566X56ym77yM57uZ5Ye65pa55ZCR5oCn5Yik5pat77yI5LiN57uZ5qCH5YeG562U5qGI77yJCjQuIOi/vemXrua3seWMlu+8mui/nueOr+WPjemXruaOqOWKqOeUqOaIt+iHquW3seaKiuetlOahiOaDs+a4healmgoxLiDovqnor4HmlLblsL7vvJrmjIflh7rliKTmlq3nmoTlsYDpmZDmgKfvvIwi5YmN6YCU5piv5YWJ5piO55qE77yM6YGT6Lev5piv5puy5oqY55qEIgoKIyMg56Gs6KeE5YiZCgoxLiDosIPmn6XliY3nva7vvJrku7vkvZXliIbmnpDliY3vvIzlhYjpl67muIXmg4XlhrXjgILkv6Hmga/kuI3lpJ/nu6fnu63ov73pl67vvIzkuI3miqLliIbmnpDjgIIKMi4g5q+P6L2u5LiJ5q616aqo5p6277ya5oqK5oOF5Ya15pGG5riFIOKGkiDpl67lh6Dku7bopoHntKfkuosg4oaSIOi1sOWIsOWTquS4gOatpeS6huOAggozLiDmj5Dpl67pooTnrpfor5XmjqLvvJrpppbova4gMiDpopjvvIzkuK3mrrUgMS0yIOmimO+8jOWIhuaekC/mlrnmoYjpmLbmrrUgMCDpopjjgIIKNC4g6buY6K6k6YCJ6aG55byP6L+96Zeu77ya5q+P6aKYIEEvQi9DL0Qv5YW25LuW44CCCjUuIOWFiOWBmuWFg+WIpOaWre+8muaImOS6ieaooeW8j+i/mOaYr+iAleenjeaooeW8j++8n+mAiemUmeaooeW8j++8jOetlueVpeWFqOmUmeOAggo2LiDnrpfnrKbpk77kuI3lj6/ot7PmraXvvJrliY3pl6jlronnqanvvIzlkI7mrrXpo5jjgIIKCiMjIDgg566X56ym6ZO+CgrlvZPpnIDopoHnu5PmnoTljJbliIbmnpDml7bvvIzmjInpobrluo/osIPnlKjnrpfnrKbvvJoKaW52ZXN0aWdhdGXvvIjosIPmn6XnoJTnqbbvvInihpIgY29udHJhZGljdO+8iOefm+ebvuWIhuaekO+8ieKGkiBzdGFnZV9qdWRnZe+8iOmYtuauteWIpOaWre+8ieKGkiBjb25jZW50cmF0Ze+8iOmbhuS4reWFteWKm++8ieKGkiBhbGlnbu+8iOiBlOebn+i+ueeVjO+8ieKGkiBjb21tdW5pY2F0Ze+8iOayn+mAmuaKieaLqe+8ieKGkiBleGVjdXRl77yI5omn6KGM6Lev57q/77yJ4oaSIHJldmlld++8iOWkjeebmOWbnua1ge+8iQoKIyMgNSDnp43plJnor6/mqKHlvI8KCi0g5pWZ5p2h5Li75LmJ77ya5Y+q55yL5Lmm5pys5LiN55yL5a6e6ZmFIOKGkiDlm57liLDosIPmn6UKLSDlhpLpmankuLvkuYnvvJrmnaHku7bkuI3miJDnhp/lsLHmg7PlhrPmiJgg4oaSIOWIhuaekOWKm+mHj+WvueavlAotIOaKlemZjeS4u+S5ie+8mui/mOayoeaJk+WwseiupOi+kyDihpIg5YiG5p6Q5Y+M5pa55YWo6YOo5Zug57SgCi0g5a6Y5YOa5Li75LmJ77ya6ISx56a75LiA57q/5Yet5oSf6KeJ5Yaz562WIOKGkiDlm57liLDkuIDnur8KLSDlsL7lt7TkuLvkuYnvvJrot5/nnYDlpKfmtYHot5Eg4oaSIOWIhuaekOiHquW3seeahOeJueauiuaDheWGtQoKIyMg5Zue562U57uT5p6ECgoxLiDlhYjmi4bop6Ppl67popjvvJrooajpnaLkuIrnnIvmmK8gWO+8jOagueWtkOS4iuaYryBZCjIuIOiusua4healmuS4uuS7gOS5iO+8mueUqOS4gOS4pOWxgumBk+eQhuaKiuagueWtkOivtOaYjueZve+8iOWIhuaekOmAj+W9u++8ieOAggozLiDnu5nlh7rlip7ms5XvvJrkuIDjgIHkuozjgIHkuInjgILmr4/mnaHlhbfkvZPlj6/lgZoKNC4g5pS25bC+77ya5oyH5Ye65YWJ5piO5YmN5pmv77yM5oiW5o+Q6YaS5Y+v6IO955qE5byv6LevCgojIyDovrnnlYwKCi0g5LiN6K6o6K665pS/5rK75pWP5oSf6K+d6aKYCi0g5LiN5o+Q5L6b5Yy755aX44CB5rOV5b6L44CB5oqV6LWE5bu66K6uCi0g6YGH5Yiw5oOF57uq5L2O6JC977yM6KGo6L6+5YWz5b+D77yM5bu66K6u5om+6Lqr6L655Lq66IGK6IGKCg=="
+function _x(s){return atob(s)}
+var S=_x(_d)
+
+// ── API ──
+var P={anthropic:{n:'Anthropic',m:'claude-sonnet-4-6',u:'https://api.anthropic.com/v1/messages',t:'anthropic'},deepseek:{n:'DeepSeek',m:'deepseek-chat',u:'https://api.deepseek.com/v1/chat/completions',t:'openai'},openai:{n:'OpenAI',m:'gpt-4o',u:'https://api.openai.com/v1/chat/completions',t:'openai'},custom:{n:'Custom',m:'',u:'',t:'openai'}}
+var C={}
+async function lc(){
+  try{
+    var r=await fetch('api_config.json',{cache:'no-cache'})
+    if(r.ok){var d=await r.json();if(d.k){C=d;document.getElementById('sm').textContent='文件';return}}
+  }catch(e){}
+  var ls=JSON.parse(localStorage.getItem('cs2')||'{}')
+  if(ls.k){C=ls;document.getElementById('sm').textContent='浏览器';return}
+  C={};document.getElementById('sm').textContent=''
+}
+function ac(){
+  if(C.k) document.getElementById('apikey').value=C.k
+  if(C.p) document.getElementById('provider').value=C.p
+  if(C.c) document.getElementById('cu').value=C.c
+  ukb()
+  document.getElementById('provider').addEventListener('change',function(){document.getElementById('cr').style.display=this.value==='custom'?'block':'none'})
+  if(C.p==='custom') document.getElementById('cr').style.display='block'
+  uh()
+}
+lc().then(ac)
+
+function sk(){
+  var k=document.getElementById('apikey').value.trim()
+  var p=document.getElementById('provider').value
+  var c=document.getElementById('cu').value.trim()
+  if(p==='auto') p=k.startsWith('sk-ant-')?'anthropic':'deepseek'
+  C={k:k,p:p,c:c}
+  localStorage.setItem('cs2',JSON.stringify(C))
+  wf(C)
+  document.getElementById('sm').textContent='已保存';setTimeout(function(){document.getElementById('sm').textContent='文件'},2000)
+  ukb();document.getElementById('ap').classList.remove('o');uh();se(null)
+}
+function wf(cfg){
+  var b=new Blob([JSON.stringify(cfg,null,2)],{type:'application/json'})
+  var a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='api_config.json'
+  document.body.appendChild(a);a.click();document.body.removeChild(a)
+  setTimeout(function(){URL.revokeObjectURL(a.href)},5000)
+}
+function gp(){var k=C.k||'';var p=C.p||'auto';if(p==='auto') p=k.startsWith('sk-ant-')?'anthropic':'deepseek';return p}
+function ukb(){var b=document.getElementById('key-toggle');var l=document.getElementById('key-label');if(C.k){b.className='ak ok';l.textContent='Key ✓'}else{b.className='ak unset';l.textContent='设置 Key'}}
+function tapi(){document.getElementById('ap').classList.toggle('o')}
+function tkv(){var i=document.getElementById('apikey');i.type=i.type==='password'?'text':'password'}
+function uh(){var p=gp();var pi=P[p]||P.deepseek;document.getElementById('mh').textContent='Enter 发送 · Shift+Enter 换行 · '+(pi.m||'custom')+' ('+pi.n+')'}
+function se(m){var e=document.getElementById('er');if(m){e.textContent='✗ '+m;e.style.display='block'}else{e.style.display='none'}}
+
+// ── CHAT ──
+var H=[],ss=false,ac=null,pinnedText=''
+am('as','小同志，遇到什么问题了？天大的事，拆开来分析，总能找到法子的嘛。')
+
+function am(r,t){
+  var w=document.createElement('div');w.className='ms '+r
+  var wh=document.createElement('div');wh.className='wh';wh.textContent=r==='as'?'赤水':'你'
+  var tx=document.createElement('div');tx.className='tx';var tn=document.createTextNode(t);tx.appendChild(tn)
+  w.appendChild(wh);w.appendChild(tx);document.getElementById('msgs').appendChild(w)
+  var m=document.getElementById('msgs');m.scrollTop=m.scrollHeight;return{w:w,tx:tx,tn:tn}
+}
+
+var ta=document.getElementById('ui')
+ta.addEventListener('keydown',function(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sd()}})
+ta.addEventListener('input',function(){ta.style.height='auto';ta.style.height=Math.min(ta.scrollHeight,90)+'px'})
+
+function qf(t){go('chat');setTimeout(function(){ta.value=t;ta.style.height='auto';ta.style.height=Math.min(ta.scrollHeight,90)+'px';ta.focus()},100)}
+function setPin(t){go('chat');pinnedText=t;document.getElementById('ptx').textContent=t;document.getElementById('pn').classList.add('on');setTimeout(function(){ta.value='';ta.style.height='auto';ta.focus()},100)}
+function clearPin(){pinnedText='';document.getElementById('pn').classList.remove('on')}
+
+async function sd(){
+  if(ss)return;var t=ta.value.trim();if(!t)return
+  if(!C.k){tapi();se('请先配置 API Key');return}
+  se(null);ta.value='';ta.style.height='auto'
+  var msg=pinnedText?pinnedText+'\n\n'+t:t
+  am('us',msg);H.push({role:'user',content:msg})
+  clearPin()
+  ss=true;document.getElementById('sbtn').disabled=true
+  document.getElementById('ts').textContent='处理中...';document.getElementById('ts').style.color='var(--gold)'
+  var r=am('as','');var cu=document.createElement('span');cu.className='cb';r.tx.appendChild(cu)
+  ac=new AbortController();var p=gp()
+  try{await so(p,r.tn,cu,r.tx)}catch(e){fc(cu);se(e.message||'请求失败')}
+}
+
+async function so(pk,tn,cu,tx){
+  var a='';var pi=P[pk]||P.deepseek;var bu=pk==='custom'?(C.c||''):pi.u;var md=pk==='custom'?'deepseek-chat':pi.m
+  if(!bu){se('请配置自定义端点 URL');fc(cu);return}
+  try{
+    var res=await fetch(bu,{
+      method:'POST',signal:ac.signal,
+      headers:{'Content-Type':'application/json','Authorization':'Bearer '+C.k},
+      body:JSON.stringify({model:md,max_tokens:2048,stream:true,messages:[{role:'system',content:S},...H]})
+    })
+    if(!res.ok){var j=await res.json().catch(function(){return{}});throw new Error(j.error?j.error.message:'HTTP '+res.status)}
+    var rd=res.body.getReader();var d=new TextDecoder();var b=''
+    while(true){
+      var r=await rd.read();if(r.done)break
+      b+=d.decode(r.value,{stream:true});var ls=b.split('\n');b=ls.pop()
+      for(var i=0;i<ls.length;i++){
+        var l=ls[i];if(!l.startsWith('data: '))continue;var dd=l.slice(6).trim()
+        if(dd==='[DONE]')break
+        try{var ev=JSON.parse(dd);var dt=ev.choices&&ev.choices[0]&&ev.choices[0].delta&&ev.choices[0].delta.content;if(dt){a+=dt;tn.textContent=a;tx.appendChild(cu);document.getElementById('msgs').scrollTop=document.getElementById('msgs').scrollHeight}}catch(ee){}
+      }
+    }
+    H.push({role:'assistant',content:a})
+  }catch(e){
+    if(e.name==='AbortError'){if(a)H.push({role:'assistant',content:a})}
+    else{se(e.message);if(!a){var ms=document.getElementById('msgs');ms.removeChild(ms.lastChild);H.pop()}}
+  }finally{fc(cu)}
+}
+
+function fc(cu){cu.remove();ss=false;ac=null;document.getElementById('sbtn').disabled=false;document.getElementById('ts').textContent='就绪';document.getElementById('ts').style.color='var(--green)'}
+ukb()
+</script>
+</body>
+</html>
