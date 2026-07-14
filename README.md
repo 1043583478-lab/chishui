@@ -1,7 +1,7 @@
 <h1 align="center">赤 水</h1>
 
 <p align="center">
-  <strong>给 AI 装上文明的思维系统。</strong><br>
+  <strong>给 AI 装上提炼自毛选的决策/思维系统。</strong><br>
   <strong>给 AI 以文明，而不是给文明以 AI 。</strong><br>
 </p>
 
